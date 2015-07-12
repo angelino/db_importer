@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ledgers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ledger</th>
+      <th>Account</th>
+      <th>Period</th>
+      <th>Transaction date</th>
+      <th>Journal</th>
+      <th>Line no</th>
+      <th>Base amt</th>
+      <th>Base amt (+/-)</th>
+      <th>Debit credit marker</th>
+      <th>Reference</th>
+      <th>Description</th>
+      <th>Journal type</th>
+      <th>Journal source</th>
+      <th>Other amt</th>
+      <th>Other amt (+/-)</th>
+      <th>Conversion code</th>
+      <th>Rate</th>
+      <th>Tcode 0</th>
+      <th>Tcode 1</th>
+      <th>Tcode 2</th>
+      <th>Tcode 3</th>
+      <th>Tcode 4</th>
+      <th>Tcode 5</th>
+      <th>Tcode 6</th>
+      <th>Tcode 7</th>
+      <th>Tcode 8</th>
+      <th>Tcode 9</th>
+      <th>Alloc ind</th>
+      <th>Alloc ref</th>
+      <th>Alloc period</th>
+      <th>Alloc date</th>
+      <th>Asset indicator</th>
+      <th>Asset code</th>
+      <th>Asset subcode</th>
+      <th>Entry date</th>
+      <th>Entry period</th>
+      <th>Due date</th>
+      <th>Entry op</th>
+      <th>Post op</th>
+      <th>Amend op</th>
+      <th>Rough book</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ledgers.each do |ledger| %>
+      <tr>
+        <td><%= ledger.ledger %></td>
+        <td><%= ledger.account %></td>
+        <td><%= ledger.period %></td>
+        <td><%= ledger.transaction_date %></td>
+        <td><%= ledger.journal %></td>
+        <td><%= ledger.line_no %></td>
+        <td><%= ledger.base_amt %></td>
+        <td><%= ledger.signal_base_amt %></td>
+        <td><%= ledger.debit_credit_marker %></td>
+        <td><%= ledger.reference %></td>
+        <td><%= ledger.description %></td>
+        <td><%= ledger.journal_type %></td>
+        <td><%= ledger.journal_source %></td>
+        <td><%= ledger.other_amt %></td>
+        <td><%= ledger.signal_other_amt %></td>
+        <td><%= ledger.conversion_code %></td>
+        <td><%= ledger.rate %></td>
+        <td><%= ledger.tcode_0 %></td>
+        <td><%= ledger.tcode_1 %></td>
+        <td><%= ledger.tcode_2 %></td>
+        <td><%= ledger.tcode_3 %></td>
+        <td><%= ledger.tcode_4 %></td>
+        <td><%= ledger.tcode_5 %></td>
+        <td><%= ledger.tcode_6 %></td>
+        <td><%= ledger.tcode_7 %></td>
+        <td><%= ledger.tcode_8 %></td>
+        <td><%= ledger.tcode_9 %></td>
+        <td><%= ledger.alloc_ind %></td>
+        <td><%= ledger.alloc_ref %></td>
+        <td><%= ledger.alloc_period %></td>
+        <td><%= ledger.alloc_date %></td>
+        <td><%= ledger.asset_indicator %></td>
+        <td><%= ledger.asset_code %></td>
+        <td><%= ledger.asset_subcode %></td>
+        <td><%= ledger.entry_date %></td>
+        <td><%= ledger.entry_period %></td>
+        <td><%= ledger.due_date %></td>
+        <td><%= ledger.entry_op %></td>
+        <td><%= ledger.post_op %></td>
+        <td><%= ledger.amend_op %></td>
+        <td><%= ledger.rough_book %></td>
+        <td><%= link_to 'Show', ledger %></td>
+        <td><%= link_to 'Edit', edit_ledger_path(ledger) %></td>
+        <td><%= link_to 'Destroy', ledger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @ledgers %>
+
+<br>
+
+<%= link_to 'New Ledger', new_ledger_path %>
