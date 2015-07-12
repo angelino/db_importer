@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Extracts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ledger</th>
+      <th>Account</th>
+      <th>Period</th>
+      <th>Transaction date</th>
+      <th>Journal</th>
+      <th>Line no</th>
+      <th>Base amt</th>
+      <th>Base amt (+/-)</th>
+      <th>Debit credit marker</th>
+      <th>Reference</th>
+      <th>Description</th>
+      <th>Journal type</th>
+      <th>Journal source</th>
+      <th>Other amt</th>
+      <th>Other amt (+/-)</th>
+      <th>Conversion code</th>
+      <th>Rate</th>
+      <th>Tcode 0</th>
+      <th>Tcode 1</th>
+      <th>Tcode 2</th>
+      <th>Tcode 3</th>
+      <th>Tcode 4</th>
+      <th>Tcode 5</th>
+      <th>Tcode 6</th>
+      <th>Tcode 7</th>
+      <th>Tcode 8</th>
+      <th>Tcode 9</th>
+      <th>Alloc ind</th>
+      <th>Alloc ref</th>
+      <th>Alloc period</th>
+      <th>Alloc date</th>
+      <th>Asset indicator</th>
+      <th>Asset code</th>
+      <th>Asset subcode</th>
+      <th>Entry date</th>
+      <th>Entry period</th>
+      <th>Due date</th>
+      <th>Entry op</th>
+      <th>Post op</th>
+      <th>Amend op</th>
+      <th>Rough book</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extracts.each do |extract| %>
+      <tr>
+        <td><%= extract.ledger %></td>
+        <td><%= extract.account %></td>
+        <td><%= extract.period %></td>
+        <td><%= extract.transaction_date %></td>
+        <td><%= extract.journal %></td>
+        <td><%= extract.line_no %></td>
+        <td><%= extract.base_amt %></td>
+        <td><%= extract.signal_base_amt %></td>
+        <td><%= extract.debit_credit_marker %></td>
+        <td><%= extract.reference %></td>
+        <td><%= extract.description %></td>
+        <td><%= extract.journal_type %></td>
+        <td><%= extract.journal_source %></td>
+        <td><%= extract.other_amt %></td>
+        <td><%= extract.signal_other_amt %></td>
+        <td><%= extract.conversion_code %></td>
+        <td><%= extract.rate %></td>
+        <td><%= extract.tcode_0 %></td>
+        <td><%= extract.tcode_1 %></td>
+        <td><%= extract.tcode_2 %></td>
+        <td><%= extract.tcode_3 %></td>
+        <td><%= extract.tcode_4 %></td>
+        <td><%= extract.tcode_5 %></td>
+        <td><%= extract.tcode_6 %></td>
+        <td><%= extract.tcode_7 %></td>
+        <td><%= extract.tcode_8 %></td>
+        <td><%= extract.tcode_9 %></td>
+        <td><%= extract.alloc_ind %></td>
+        <td><%= extract.alloc_ref %></td>
+        <td><%= extract.alloc_period %></td>
+        <td><%= extract.alloc_date %></td>
+        <td><%= extract.asset_indicator %></td>
+        <td><%= extract.asset_code %></td>
+        <td><%= extract.asset_subcode %></td>
+        <td><%= extract.entry_date %></td>
+        <td><%= extract.entry_period %></td>
+        <td><%= extract.due_date %></td>
+        <td><%= extract.entry_op %></td>
+        <td><%= extract.post_op %></td>
+        <td><%= extract.amend_op %></td>
+        <td><%= extract.rough_book %></td>
+        <td><%= link_to 'Show', extract %></td>
+        <td><%= link_to 'Edit', edit_extract_path(extract) %></td>
+        <td><%= link_to 'Destroy', extract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @extracts %>
+
+<br>
+
+<%= link_to 'New Extract', new_extract_path %>

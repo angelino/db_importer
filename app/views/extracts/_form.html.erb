@@ -1,0 +1,181 @@
+<%= form_for(@extract) do |f| %>
+  <% if @extract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@extract.errors.count, "error") %> prohibited this extract from being saved:</h2>
+
+      <ul>
+      <% @extract.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ledger %><br>
+    <%= f.text_field :ledger %>
+  </div>
+  <div class="field">
+    <%= f.label :account %><br>
+    <%= f.text_field :account %>
+  </div>
+  <div class="field">
+    <%= f.label :period %><br>
+    <%= f.text_field :period %>
+  </div>
+  <div class="field">
+    <%= f.label :transaction_date %><br>
+    <%= f.text_field :transaction_date %>
+  </div>
+  <div class="field">
+    <%= f.label :journal %><br>
+    <%= f.text_field :journal %>
+  </div>
+  <div class="field">
+    <%= f.label :line_no %><br>
+    <%= f.text_field :line_no %>
+  </div>
+  <div class="field">
+    <%= f.label :base_amt %><br>
+    <%= f.text_field :base_amt %>
+  </div>
+  <div class="field">
+    <%= f.label :signal_base_amt %><br>
+    <%= f.text_field :signal_base_amt %>
+  </div>
+  <div class="field">
+    <%= f.label :debit_credit_marker %><br>
+    <%= f.text_field :debit_credit_marker %>
+  </div>
+  <div class="field">
+    <%= f.label :reference %><br>
+    <%= f.text_field :reference %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :journal_type %><br>
+    <%= f.text_field :journal_type %>
+  </div>
+  <div class="field">
+    <%= f.label :journal_source %><br>
+    <%= f.text_field :journal_source %>
+  </div>
+  <div class="field">
+    <%= f.label :other_amt %><br>
+    <%= f.text_field :other_amt %>
+  </div>
+  <div class="field">
+    <%= f.label :signal_other_amt %><br>
+    <%= f.text_field :signal_other_amt %>
+  </div>
+  <div class="field">
+    <%= f.label :conversion_code %><br>
+    <%= f.text_field :conversion_code %>
+  </div>
+  <div class="field">
+    <%= f.label :rate %><br>
+    <%= f.text_field :rate %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_0 %><br>
+    <%= f.text_field :tcode_0 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_1 %><br>
+    <%= f.text_field :tcode_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_2 %><br>
+    <%= f.text_field :tcode_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_3 %><br>
+    <%= f.text_field :tcode_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_4 %><br>
+    <%= f.text_field :tcode_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_5 %><br>
+    <%= f.text_field :tcode_5 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_6 %><br>
+    <%= f.text_field :tcode_6 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_7 %><br>
+    <%= f.text_field :tcode_7 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_8 %><br>
+    <%= f.text_field :tcode_8 %>
+  </div>
+  <div class="field">
+    <%= f.label :tcode_9 %><br>
+    <%= f.text_field :tcode_9 %>
+  </div>
+  <div class="field">
+    <%= f.label :alloc_ind %><br>
+    <%= f.text_field :alloc_ind %>
+  </div>
+  <div class="field">
+    <%= f.label :alloc_ref %><br>
+    <%= f.text_field :alloc_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :alloc_period %><br>
+    <%= f.text_field :alloc_period %>
+  </div>
+  <div class="field">
+    <%= f.label :alloc_date %><br>
+    <%= f.text_field :alloc_date %>
+  </div>
+  <div class="field">
+    <%= f.label :asset_indicator %><br>
+    <%= f.text_field :asset_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :asset_code %><br>
+    <%= f.text_field :asset_code %>
+  </div>
+  <div class="field">
+    <%= f.label :asset_subcode %><br>
+    <%= f.text_field :asset_subcode %>
+  </div>
+  <div class="field">
+    <%= f.label :entry_date %><br>
+    <%= f.text_field :entry_date %>
+  </div>
+  <div class="field">
+    <%= f.label :entry_period %><br>
+    <%= f.text_field :entry_period %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date %><br>
+    <%= f.text_field :due_date %>
+  </div>
+  <div class="field">
+    <%= f.label :entry_op %><br>
+    <%= f.text_field :entry_op %>
+  </div>
+  <div class="field">
+    <%= f.label :post_op %><br>
+    <%= f.text_field :post_op %>
+  </div>
+  <div class="field">
+    <%= f.label :amend_op %><br>
+    <%= f.text_field :amend_op %>
+  </div>
+  <div class="field">
+    <%= f.label :rough_book %><br>
+    <%= f.text_field :rough_book %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -7,6 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require_relative 'ledger_importer'
+require_relative 'extract_importer'
+
+batch_size = 10_000
 
 # Import Ledgers...
 puts "#{Time.now} - Ledger's Import Initialized..."
@@ -17,10 +20,9 @@ ledger_importer = LedgerImporter.new("#{Rails.root}/db/ledgers.csv")
 ledgers = ledger_importer.entries
 puts "#{Time.now} - Ledger's File Readed..."
 
-batch_size = 10_000
 ledgers.each_slice(batch_size) do |ledgers_batch|
   Ledger.import ledgers_batch, validate: false
-  puts "#{Time.now} - #{batch_size} Records Imported..."
+  puts "#{Time.now} - #{ledgers_batch.size} Records Imported..."
 end
 
 final_time = Time.now
@@ -28,3 +30,23 @@ final_time = Time.now
 import_time = final_time.to_f - initial_time.to_f
 
 puts "#{Time.now} - Ledger' Import Finished in #{import_time} seconds"
+
+# Import Extracts...
+puts "#{Time.now} - Extract's Import Initialized..."
+
+initial_time = Time.now
+
+extract_importer = ExtractImporter.new("#{Rails.root}/db/extracts.csv")
+extracts = extract_importer.entries
+puts "#{Time.now} - Extract's File Readed..."
+
+extracts.each_slice(batch_size) do |extracts_batch|
+  Extract.import extracts_batch, validate: false
+  puts "#{Time.now} - #{extracts_batch.size} Records Imported..."
+end
+
+final_time = Time.now
+
+import_time = final_time.to_f - initial_time.to_f
+
+puts "#{Time.now} - Extract' Import Finished in #{import_time} seconds"
