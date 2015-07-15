@@ -20,18 +20,18 @@ ActiveRecord::Schema.define(version: 20150712220209) do
     t.string   "ledger"
     t.string   "account"
     t.string   "period"
-    t.string   "transaction_date"
+    t.date     "transaction_date"
     t.string   "journal"
     t.string   "line_no"
-    t.string   "base_amt"
-    t.string   "signal_base_amt"
+    t.decimal  "base_amt",            precision: 12, scale: 2
+    t.decimal  "signal_base_amt",     precision: 12, scale: 2
     t.string   "debit_credit_marker"
     t.string   "reference"
     t.string   "description"
     t.string   "journal_type"
     t.string   "journal_source"
-    t.string   "other_amt"
-    t.string   "signal_other_amt"
+    t.decimal  "other_amt",           precision: 12, scale: 2
+    t.decimal  "signal_other_amt",    precision: 12, scale: 2
     t.string   "conversion_code"
     t.string   "rate"
     t.string   "tcode_0"
@@ -47,19 +47,19 @@ ActiveRecord::Schema.define(version: 20150712220209) do
     t.string   "alloc_ind"
     t.string   "alloc_ref"
     t.string   "alloc_period"
-    t.string   "alloc_date"
+    t.date     "alloc_date"
     t.string   "asset_indicator"
     t.string   "asset_code"
     t.string   "asset_subcode"
-    t.string   "entry_date"
+    t.date     "entry_date"
     t.string   "entry_period"
-    t.string   "due_date"
+    t.date     "due_date"
     t.string   "entry_op"
     t.string   "post_op"
     t.string   "amend_op"
     t.string   "rough_book"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
   end
 
   create_table "ledgers", force: :cascade do |t|
