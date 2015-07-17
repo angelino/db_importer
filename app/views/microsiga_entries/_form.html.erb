@@ -1,0 +1,341 @@
+<%= form_for(@microsiga_entry) do |f| %>
+  <% if @microsiga_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@microsiga_entry.errors.count, "error") %> prohibited this microsiga_entry from being saved:</h2>
+
+      <ul>
+      <% @microsiga_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :status_oper %><br>
+    <%= f.text_field :status_oper %>
+  </div>
+  <div class="field">
+    <%= f.label :cnpj_cpf %><br>
+    <%= f.text_field :cnpj_cpf %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo_mapfre %><br>
+    <%= f.text_field :tipo_mapfre %>
+  </div>
+  <div class="field">
+    <%= f.label :fornecedor %><br>
+    <%= f.text_field :fornecedor %>
+  </div>
+  <div class="field">
+    <%= f.label :loja %><br>
+    <%= f.text_field :loja %>
+  </div>
+  <div class="field">
+    <%= f.label :nom_forn %><br>
+    <%= f.text_field :nom_forn %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo_rubrica %><br>
+    <%= f.text_field :tipo_rubrica %>
+  </div>
+  <div class="field">
+    <%= f.label :prefixo %><br>
+    <%= f.text_field :prefixo %>
+  </div>
+  <div class="field">
+    <%= f.label :no_titulo %><br>
+    <%= f.text_field :no_titulo %>
+  </div>
+  <div class="field">
+    <%= f.label :parcela %><br>
+    <%= f.text_field :parcela %>
+  </div>
+  <div class="field">
+    <%= f.label :natureza %><br>
+    <%= f.text_field :natureza %>
+  </div>
+  <div class="field">
+    <%= f.label :banco_dest %><br>
+    <%= f.text_field :banco_dest %>
+  </div>
+  <div class="field">
+    <%= f.label :agencia_dest %><br>
+    <%= f.text_field :agencia_dest %>
+  </div>
+  <div class="field">
+    <%= f.label :conta_dest %><br>
+    <%= f.text_field :conta_dest %>
+  </div>
+  <div class="field">
+    <%= f.label :dt_emissao %><br>
+    <%= f.text_field :dt_emissao %>
+  </div>
+  <div class="field">
+    <%= f.label :vencimento %><br>
+    <%= f.text_field :vencimento %>
+  </div>
+  <div class="field">
+    <%= f.label :vencto_real %><br>
+    <%= f.text_field :vencto_real %>
+  </div>
+  <div class="field">
+    <%= f.label :vlr_titulo %><br>
+    <%= f.text_field :vlr_titulo %>
+  </div>
+  <div class="field">
+    <%= f.label :vl_original %><br>
+    <%= f.text_field :vl_original %>
+  </div>
+  <div class="field">
+    <%= f.label :portador %><br>
+    <%= f.text_field :portador %>
+  </div>
+  <div class="field">
+    <%= f.label :iss %><br>
+    <%= f.text_field :iss %>
+  </div>
+  <div class="field">
+    <%= f.label :irrf %><br>
+    <%= f.text_field :irrf %>
+  </div>
+  <div class="field">
+    <%= f.label :inss %><br>
+    <%= f.text_field :inss %>
+  </div>
+  <div class="field">
+    <%= f.label :pis_pasep %><br>
+    <%= f.text_field :pis_pasep %>
+  </div>
+  <div class="field">
+    <%= f.label :cofins %><br>
+    <%= f.text_field :cofins %>
+  </div>
+  <div class="field">
+    <%= f.label :csll %><br>
+    <%= f.text_field :csll %>
+  </div>
+  <div class="field">
+    <%= f.label :n_do_cheque %><br>
+    <%= f.text_field :n_do_cheque %>
+  </div>
+  <div class="field">
+    <%= f.label :historico %><br>
+    <%= f.text_field :historico %>
+  </div>
+  <div class="field">
+    <%= f.label :motivo %><br>
+    <%= f.text_field :motivo %>
+  </div>
+  <div class="field">
+    <%= f.label :rateio %><br>
+    <%= f.text_field :rateio %>
+  </div>
+  <div class="field">
+    <%= f.label :vlr_rs %><br>
+    <%= f.text_field :vlr_rs %>
+  </div>
+  <div class="field">
+    <%= f.label :mult_natur %><br>
+    <%= f.text_field :mult_natur %>
+  </div>
+  <div class="field">
+    <%= f.label :rateio_proj %><br>
+    <%= f.text_field :rateio_proj %>
+  </div>
+  <div class="field">
+    <%= f.label :gera_dirf %><br>
+    <%= f.text_field :gera_dirf %>
+  </div>
+  <div class="field">
+    <%= f.label :mod_pagto %><br>
+    <%= f.text_field :mod_pagto %>
+  </div>
+  <div class="field">
+    <%= f.label :local_pagto %><br>
+    <%= f.text_field :local_pagto %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_agencia %><br>
+    <%= f.text_field :cod_agencia %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_congener %><br>
+    <%= f.text_field :cod_congener %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_pag %><br>
+    <%= f.text_field :cod_pag %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_empresa %><br>
+    <%= f.text_field :cod_empresa %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_corretor %><br>
+    <%= f.text_field :cod_corretor %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_ramo %><br>
+    <%= f.text_field :cod_ramo %>
+  </div>
+  <div class="field">
+    <%= f.label :num_liq_sin %><br>
+    <%= f.text_field :num_liq_sin %>
+  </div>
+  <div class="field">
+    <%= f.label :num_sinistro %><br>
+    <%= f.text_field :num_sinistro %>
+  </div>
+  <div class="field">
+    <%= f.label :num_original %><br>
+    <%= f.text_field :num_original %>
+  </div>
+  <div class="field">
+    <%= f.label :tributo %><br>
+    <%= f.text_field :tributo %>
+  </div>
+  <div class="field">
+    <%= f.label :num_remessa %><br>
+    <%= f.text_field :num_remessa %>
+  </div>
+  <div class="field">
+    <%= f.label :banco_origem %><br>
+    <%= f.text_field :banco_origem %>
+  </div>
+  <div class="field">
+    <%= f.label :ag_origem %><br>
+    <%= f.text_field :ag_origem %>
+  </div>
+  <div class="field">
+    <%= f.label :id_cnab_mapf %><br>
+    <%= f.text_field :id_cnab_mapf %>
+  </div>
+  <div class="field">
+    <%= f.label :id_mapfre %><br>
+    <%= f.text_field :id_mapfre %>
+  </div>
+  <div class="field">
+    <%= f.label :env_cheque %><br>
+    <%= f.text_field :env_cheque %>
+  </div>
+  <div class="field">
+    <%= f.label :enviado %><br>
+    <%= f.text_field :enviado %>
+  </div>
+  <div class="field">
+    <%= f.label :rejeitado %><br>
+    <%= f.text_field :rejeitado %>
+  </div>
+  <div class="field">
+    <%= f.label :dt_import %><br>
+    <%= f.text_field :dt_import %>
+  </div>
+  <div class="field">
+    <%= f.label :dt_exportaca %><br>
+    <%= f.text_field :dt_exportaca %>
+  </div>
+  <div class="field">
+    <%= f.label :boleto %><br>
+    <%= f.text_field :boleto %>
+  </div>
+  <div class="field">
+    <%= f.label :tributo2 %><br>
+    <%= f.text_field :tributo2 %>
+  </div>
+  <div class="field">
+    <%= f.label :vida_prev %><br>
+    <%= f.text_field :vida_prev %>
+  </div>
+  <div class="field">
+    <%= f.label :dt_ger_pagto %><br>
+    <%= f.text_field :dt_ger_pagto %>
+  </div>
+  <div class="field">
+    <%= f.label :dt_cancel_ch %><br>
+    <%= f.text_field :dt_cancel_ch %>
+  </div>
+  <div class="field">
+    <%= f.label :est_enviado %><br>
+    <%= f.text_field :est_enviado %>
+  </div>
+  <div class="field">
+    <%= f.label :cheque_pend %><br>
+    <%= f.text_field :cheque_pend %>
+  </div>
+  <div class="field">
+    <%= f.label :baixa_agluti %><br>
+    <%= f.text_field :baixa_agluti %>
+  </div>
+  <div class="field">
+    <%= f.label :cnpj_2 %><br>
+    <%= f.text_field :cnpj_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :data_compens %><br>
+    <%= f.text_field :data_compens %>
+  </div>
+  <div class="field">
+    <%= f.label :conta_origem %><br>
+    <%= f.text_field :conta_origem %>
+  </div>
+  <div class="field">
+    <%= f.label :data_exp_rj %><br>
+    <%= f.text_field :data_exp_rj %>
+  </div>
+  <div class="field">
+    <%= f.label :nr_orig_sisp %><br>
+    <%= f.text_field :nr_orig_sisp %>
+  </div>
+  <div class="field">
+    <%= f.label :n_etiq_siacc %><br>
+    <%= f.text_field :n_etiq_siacc %>
+  </div>
+  <div class="field">
+    <%= f.label :a %><br>
+    <%= f.text_field :a %>
+  </div>
+  <div class="field">
+    <%= f.label :b %><br>
+    <%= f.text_field :b %>
+  </div>
+  <div class="field">
+    <%= f.label :c %><br>
+    <%= f.text_field :c %>
+  </div>
+  <div class="field">
+    <%= f.label :d %><br>
+    <%= f.text_field :d %>
+  </div>
+  <div class="field">
+    <%= f.label :e %><br>
+    <%= f.text_field :e %>
+  </div>
+  <div class="field">
+    <%= f.label :f %><br>
+    <%= f.text_field :f %>
+  </div>
+  <div class="field">
+    <%= f.label :g %><br>
+    <%= f.text_field :g %>
+  </div>
+  <div class="field">
+    <%= f.label :h %><br>
+    <%= f.text_field :h %>
+  </div>
+  <div class="field">
+    <%= f.label :i %><br>
+    <%= f.text_field :i %>
+  </div>
+  <div class="field">
+    <%= f.label :j %><br>
+    <%= f.text_field :j %>
+  </div>
+  <div class="field">
+    <%= f.label :k %><br>
+    <%= f.text_field :k %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,187 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Microsiga Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status oper</th>
+      <th>Cnpj cpf</th>
+      <th>Tipo mapfre</th>
+      <th>Fornecedor</th>
+      <th>Loja</th>
+      <th>Nom forn</th>
+      <th>Tipo rubrica</th>
+      <th>Prefixo</th>
+      <th>No titulo</th>
+      <th>Parcela</th>
+      <th>Natureza</th>
+      <th>Banco dest</th>
+      <th>Agencia dest</th>
+      <th>Conta dest</th>
+      <th>Dt emissao</th>
+      <th>Vencimento</th>
+      <th>Vencto real</th>
+      <th>Vlr titulo</th>
+      <th>Vl original</th>
+      <th>Portador</th>
+      <th>Iss</th>
+      <th>Irrf</th>
+      <th>Inss</th>
+      <th>Pis pasep</th>
+      <th>Cofins</th>
+      <th>Csll</th>
+      <th>N do cheque</th>
+      <th>Historico</th>
+      <th>Motivo</th>
+      <th>Rateio</th>
+      <th>Vlr rs</th>
+      <th>Mult natur</th>
+      <th>Rateio proj</th>
+      <th>Gera dirf</th>
+      <th>Mod pagto</th>
+      <th>Local pagto</th>
+      <th>Cod agencia</th>
+      <th>Cod congener</th>
+      <th>Cod pag</th>
+      <th>Cod empresa</th>
+      <th>Cod corretor</th>
+      <th>Cod ramo</th>
+      <th>Num liq sin</th>
+      <th>Num sinistro</th>
+      <th>Num original</th>
+      <th>Tributo</th>
+      <th>Num remessa</th>
+      <th>Banco origem</th>
+      <th>Ag origem</th>
+      <th>Id cnab mapf</th>
+      <th>Id mapfre</th>
+      <th>Env cheque</th>
+      <th>Enviado</th>
+      <th>Rejeitado</th>
+      <th>Dt import</th>
+      <th>Dt exportaca</th>
+      <th>Boleto</th>
+      <th>Tributo2</th>
+      <th>Vida prev</th>
+      <th>Dt ger pagto</th>
+      <th>Dt cancel ch</th>
+      <th>Est enviado</th>
+      <th>Cheque pend</th>
+      <th>Baixa agluti</th>
+      <th>Cnpj 2</th>
+      <th>Data compens</th>
+      <th>Conta origem</th>
+      <th>Data exp rj</th>
+      <th>Nr orig sisp</th>
+      <th>N etiq siacc</th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+      <th>E</th>
+      <th>F</th>
+      <th>G</th>
+      <th>H</th>
+      <th>I</th>
+      <th>J</th>
+      <th>K</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @microsiga_entries.each do |microsiga_entry| %>
+      <tr>
+        <td><%= microsiga_entry.status_oper %></td>
+        <td><%= microsiga_entry.cnpj_cpf %></td>
+        <td><%= microsiga_entry.tipo_mapfre %></td>
+        <td><%= microsiga_entry.fornecedor %></td>
+        <td><%= microsiga_entry.loja %></td>
+        <td><%= microsiga_entry.nom_forn %></td>
+        <td><%= microsiga_entry.tipo_rubrica %></td>
+        <td><%= microsiga_entry.prefixo %></td>
+        <td><%= microsiga_entry.no_titulo %></td>
+        <td><%= microsiga_entry.parcela %></td>
+        <td><%= microsiga_entry.natureza %></td>
+        <td><%= microsiga_entry.banco_dest %></td>
+        <td><%= microsiga_entry.agencia_dest %></td>
+        <td><%= microsiga_entry.conta_dest %></td>
+        <td><%= microsiga_entry.dt_emissao %></td>
+        <td><%= microsiga_entry.vencimento %></td>
+        <td><%= microsiga_entry.vencto_real %></td>
+        <td><%= microsiga_entry.vlr_titulo %></td>
+        <td><%= microsiga_entry.vl_original %></td>
+        <td><%= microsiga_entry.portador %></td>
+        <td><%= microsiga_entry.iss %></td>
+        <td><%= microsiga_entry.irrf %></td>
+        <td><%= microsiga_entry.inss %></td>
+        <td><%= microsiga_entry.pis_pasep %></td>
+        <td><%= microsiga_entry.cofins %></td>
+        <td><%= microsiga_entry.csll %></td>
+        <td><%= microsiga_entry.n_do_cheque %></td>
+        <td><%= microsiga_entry.historico %></td>
+        <td><%= microsiga_entry.motivo %></td>
+        <td><%= microsiga_entry.rateio %></td>
+        <td><%= microsiga_entry.vlr_rs %></td>
+        <td><%= microsiga_entry.mult_natur %></td>
+        <td><%= microsiga_entry.rateio_proj %></td>
+        <td><%= microsiga_entry.gera_dirf %></td>
+        <td><%= microsiga_entry.mod_pagto %></td>
+        <td><%= microsiga_entry.local_pagto %></td>
+        <td><%= microsiga_entry.cod_agencia %></td>
+        <td><%= microsiga_entry.cod_congener %></td>
+        <td><%= microsiga_entry.cod_pag %></td>
+        <td><%= microsiga_entry.cod_empresa %></td>
+        <td><%= microsiga_entry.cod_corretor %></td>
+        <td><%= microsiga_entry.cod_ramo %></td>
+        <td><%= microsiga_entry.num_liq_sin %></td>
+        <td><%= microsiga_entry.num_sinistro %></td>
+        <td><%= microsiga_entry.num_original %></td>
+        <td><%= microsiga_entry.tributo %></td>
+        <td><%= microsiga_entry.num_remessa %></td>
+        <td><%= microsiga_entry.banco_origem %></td>
+        <td><%= microsiga_entry.ag_origem %></td>
+        <td><%= microsiga_entry.id_cnab_mapf %></td>
+        <td><%= microsiga_entry.id_mapfre %></td>
+        <td><%= microsiga_entry.env_cheque %></td>
+        <td><%= microsiga_entry.enviado %></td>
+        <td><%= microsiga_entry.rejeitado %></td>
+        <td><%= microsiga_entry.dt_import %></td>
+        <td><%= microsiga_entry.dt_exportaca %></td>
+        <td><%= microsiga_entry.boleto %></td>
+        <td><%= microsiga_entry.tributo2 %></td>
+        <td><%= microsiga_entry.vida_prev %></td>
+        <td><%= microsiga_entry.dt_ger_pagto %></td>
+        <td><%= microsiga_entry.dt_cancel_ch %></td>
+        <td><%= microsiga_entry.est_enviado %></td>
+        <td><%= microsiga_entry.cheque_pend %></td>
+        <td><%= microsiga_entry.baixa_agluti %></td>
+        <td><%= microsiga_entry.cnpj_2 %></td>
+        <td><%= microsiga_entry.data_compens %></td>
+        <td><%= microsiga_entry.conta_origem %></td>
+        <td><%= microsiga_entry.data_exp_rj %></td>
+        <td><%= microsiga_entry.nr_orig_sisp %></td>
+        <td><%= microsiga_entry.n_etiq_siacc %></td>
+        <td><%= microsiga_entry.a %></td>
+        <td><%= microsiga_entry.b %></td>
+        <td><%= microsiga_entry.c %></td>
+        <td><%= microsiga_entry.d %></td>
+        <td><%= microsiga_entry.e %></td>
+        <td><%= microsiga_entry.f %></td>
+        <td><%= microsiga_entry.g %></td>
+        <td><%= microsiga_entry.h %></td>
+        <td><%= microsiga_entry.i %></td>
+        <td><%= microsiga_entry.j %></td>
+        <td><%= microsiga_entry.k %></td>
+        <td><%= link_to 'Show', microsiga_entry %></td>
+        <td><%= link_to 'Edit', edit_microsiga_entry_path(microsiga_entry) %></td>
+        <td><%= link_to 'Destroy', microsiga_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Microsiga entry', new_microsiga_entry_path %>
