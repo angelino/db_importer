@@ -6,47 +6,52 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require_relative 'ledger_importer'
-require_relative 'extract_importer'
+# require_relative 'ledger_importer'
+# require_relative 'extract_importer'
 
-batch_size = 10_000
+# batch_size = 10_000
 
-# Import Ledgers...
-puts "#{Time.now} - Ledger's Import Initialized..."
+# # Import Ledgers...
+# puts "#{Time.now} - Ledger's Import Initialized..."
 
-initial_time = Time.now
+# initial_time = Time.now
 
-ledger_importer = LedgerImporter.new("#{Rails.root}/db/ledgers.csv")
-ledgers = ledger_importer.entries
-puts "#{Time.now} - Ledger's File Readed..."
+# ledgers_file = ENV['ledgers_file']
+# ledgers_file ||= 'ledgers-test.csv'
+# extracts_file = ENV['extracts_file']
+# extracts_file ||= 'extracts-test.csv'
 
-ledgers.each_slice(batch_size) do |ledgers_batch|
-  Ledger.import ledgers_batch, validate: false
-  puts "#{Time.now} - #{ledgers_batch.size} Records Imported..."
-end
+# ledger_importer = LedgerImporter.new("#{Rails.root}/db/#{ledgers_file}")
+# ledgers = ledger_importer.entries
+# puts "#{Time.now} - Ledger's File Readed..."
 
-final_time = Time.now
+# ledgers.each_slice(batch_size) do |ledgers_batch|
+#   Ledger.import ledgers_batch, validate: false
+#   puts "#{Time.now} - #{ledgers_batch.size} Records Imported..."
+# end
 
-import_time = final_time.to_f - initial_time.to_f
+# final_time = Time.now
 
-puts "#{Time.now} - Ledger' Import Finished in #{import_time} seconds"
+# import_time = final_time.to_f - initial_time.to_f
 
-# Import Extracts...
-puts "#{Time.now} - Extract's Import Initialized..."
+# puts "#{Time.now} - Ledger' Import Finished in #{import_time} seconds"
 
-initial_time = Time.now
+# # Import Extracts...
+# puts "#{Time.now} - Extract's Import Initialized..."
 
-extract_importer = ExtractImporter.new("#{Rails.root}/db/extracts.csv")
-extracts = extract_importer.entries
-puts "#{Time.now} - Extract's File Readed..."
+# initial_time = Time.now
 
-extracts.each_slice(batch_size) do |extracts_batch|
-  Extract.import extracts_batch, validate: false
-  puts "#{Time.now} - #{extracts_batch.size} Records Imported..."
-end
+# extract_importer = ExtractImporter.new("#{Rails.root}/db/#{extracts_file}")
+# extracts = extract_importer.entries
+# puts "#{Time.now} - Extract's File Readed..."
 
-final_time = Time.now
+# extracts.each_slice(batch_size) do |extracts_batch|
+#   Extract.import extracts_batch, validate: false
+#   puts "#{Time.now} - #{extracts_batch.size} Records Imported..."
+# end
 
-import_time = final_time.to_f - initial_time.to_f
+# final_time = Time.now
 
-puts "#{Time.now} - Extract' Import Finished in #{import_time} seconds"
+# import_time = final_time.to_f - initial_time.to_f
+
+# puts "#{Time.now} - Extract' Import Finished in #{import_time} seconds"

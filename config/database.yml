@@ -17,9 +17,11 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  database: mcamilo
+  username: murta
+  password: wl0912
   pool: 5
-  username: lucas
-  password:
+  timeout: 5000
 
 development:
   <<: *default

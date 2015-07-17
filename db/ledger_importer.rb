@@ -39,6 +39,6 @@ class LedgerImporter
   end
 
   def format_decimal(value)
-    BigDecimal.new(value.to_s.gsub('.', '').gsub(',', '.'))
+    BigDecimal.new(value.to_s.gsub(' ', '').gsub('.', '').gsub(',', '.'))
   end
 end
