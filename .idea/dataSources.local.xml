@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - db_importer_development@localhost" uuid="3c2dd580-d206-4b6d-a8b0-a4679776dcdb">
+      <secret-storage>master_key</secret-storage>
+      <user-name>murta</user-name>
+      <schema-pattern>db_importer_development.pg_catalog db_importer_development.public</schema-pattern>
+      <default-schemas>db_importer_development.pg_catalog db_importer_development.public</default-schemas>
+    </data-source>
+  </component>
+</project>

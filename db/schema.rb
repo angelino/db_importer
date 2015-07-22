@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(version: 20150717020730) do
     t.string   "rough_book"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.integer  "count_1"
+    t.integer  "count_2"
+    t.integer  "count_3"
+    t.integer  "count_4"
+    t.integer  "rule_id"
+    t.string   "rule_description"
   end
 
   create_table "ledgers", force: :cascade do |t|
@@ -106,6 +112,12 @@ ActiveRecord::Schema.define(version: 20150717020730) do
     t.string   "rough_book"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.integer  "count_1"
+    t.integer  "count_2"
+    t.integer  "count_3"
+    t.integer  "count_4"
+    t.integer  "rule_id"
+    t.string   "rule_description"
   end
 
   create_table "microsiga_entries", force: :cascade do |t|
