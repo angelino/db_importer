@@ -56,37 +56,35 @@ def split_ledger(filename):
     return split_file(filename, LEDGER_HEADER)
 
 
-def ledger_importer(ledger, rakefile=None):
+def ledger_importer(ledger):
     command = ['rake', 'msit:import', 'ledgers_file=%s' % ledger]
-    if rakefile is not None:
-        command.append('-f %s' % rakefile)
     exit_code = subprocess.call(command)
 
 
-def extract_importer(extract, rakefile=None):
+def extract_importer(extract):
     command = ['rake', 'msit:import', 'extracts_file=%s' % extract]
-    if rakefile is not None:
-        command.append('-f %s' % rakefile)
     exit_code = subprocess.call(command)
 
 
-def microsiga_importer(microsiga, rakefile=None):
+def microsiga_importer(microsiga):
     command = ['rake', 'msit:import', 'microsiga_file=%s' % microsiga]
-    if rakefile is not None:
-        command.append('-f %s' % rakefile)
     exit_code = subprocess.call(command)
 
 
-def process_files(files, worker, rakefile=None):
-    procs = []
-    for f in files:
-        p = multiprocessing.Process(
-            target=worker, args=(f, rakefile))
-        procs.append(p)
-        p.start()
+def process_files(worker, files):
+    ncpu = multiprocessing.cpu_count()
+    pool = multiprocessing.Pool(ncpu)
+    results = [pool.apply(worker, (f,)) for f in files]
+    #result = pool.apply(worker, (files[0],))
+    #procs = []
+    #for f in files:
+    #    p = multiprocessing.Process(
+    #        target=worker, args=(f, rakefile))
+    #    procs.append(p)
+    #    p.start()
 
-    for i in procs:
-        i.join()
+    #for i in procs:
+    #    i.join()
         # rake is always returning 0 !!!
         #if i.exitcode != 0:
         #    raise Exception('Bad importation')
@@ -98,22 +96,20 @@ if __name__ == '__main__':
     parser.add_argument('--ledgers', required=False)
     parser.add_argument('--microsiga', required=False)
     parser.add_argument('--extracts', required=False)
-    parser.add_argument('--rakefile', required=False)
 
     args = parser.parse_args()
     ledgers = args.ledgers
     microsiga = args.microsiga
     extracts = args.extracts
-    rakefile = args.rakefile
 
     if ledgers is not None:
         ledgers = split_ledger(ledgers)
-        process_files(ledgers, ledger_importer, rakefile)
+        process_files(ledger_importer, ledgers)
 
     if microsiga is not None:
         microsigas = split_microsiga(microsiga)
-        process_files(microsigas, microsiga_importer, rakefile)
+        process_files(microsiga_importer, microsigas)
 
     if extracts is not None:
         extracts = split_extract(extract)
-        process_files(extracts, extract_importer, rakefile)
+        process_files(extract_importer, extracts)
