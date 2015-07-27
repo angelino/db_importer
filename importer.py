@@ -5,8 +5,8 @@ import argparse
 import os
 
 
-LEDGER_HEADER = 'Ledger,Account,Period,Transaction Date,Journal,Line No.,Base Amt,Signal Base Amt,Debit Credit marker,Reference,Description,Journal Type,Journal Source,Other Amt,Signal Other Amt,Conversion Code,Rate,TCode 0,TCode 1,TCode 2,TCode 3,TCode 4,TCode 5,TCode 6,TCode 7,TCode 8,TCode 9,Alloc Ind.,Alloc Ref.,Alloc Period,Alloc Date,Asset Indicator,Asset Code,Asset Sub-code,Entry Date,Entry Period,Due Date,Entry OP,Post OP,Amend Op,Rough Book'
-MICROSIGA_HEADER = 'Status Oper,CNPJ CPF,Tipo Mapfre,Fornecedor,Loja,Nom Forn,Tipo Rubrica,Prefixo,No Titulo,Parcela,Natureza,Banco Dest,Agencia Dest,Conta Dest,DT Emissao,Vencimento,Vencto Real,Vlr Titulo,Vl Original,Portador,ISS,IRRF,INSS,PIS PASEP,COFINS,CSLL,N do Cheque,Historico,Motivo,Rateio,Vlr RS,Mult Natur,Rateio Proj,Gera Dirf,Mod Pagto,Local Pagto,Cod Agencia,Cod Congener,Cod Pag,Cod Empresa,Cod Corretor,Cod Ramo,Num Liq Sin,Num Sinistro,Num Original,Tributo,Num Remessa,Banco Origem,Ag Origem,ID Cnab Mapf,ID Mapfre,Env Cheque,Enviado,Rejeitado,DT IMPORT,Dt Exportaca,Boleto,Tributo2,Vida Prev,Dt Ger Pagto,Dt Cancel CH,Est Enviado,Cheque Pend,Baixa Agluti,cnpj 2,Data Compens,Conta Origem,Data Exp RJ,Nr Orig SisP,N Etiq SIACC'
+LEDGER_HEADER = 'Ledger,Account,Period,Transaction Date,Journal,Line No.,Base Amt,Signal Base Amt,Debit Credit marker,Reference,Description,Journal Type,Journal Source,Other Amt,Signal Other Amt,Conversion Code,Rate,TCode 0,TCode 1,TCode 2,TCode 3,TCode 4,TCode 5,TCode 6,TCode 7,TCode 8,TCode 9,Alloc Ind.,Alloc Ref.,Alloc Period,Alloc Date,Asset Indicator,Asset Code,Asset Sub-code,Entry Date,Entry Period,Due Date,Entry OP,Post OP,Amend Op,Rough Book\n'
+MICROSIGA_HEADER = 'Status Oper,CNPJ CPF,Tipo Mapfre,Fornecedor,Loja,Nom Forn,Tipo Rubrica,Prefixo,No Titulo,Parcela,Natureza,Banco Dest,Agencia Dest,Conta Dest,DT Emissao,Vencimento,Vencto Real,Vlr Titulo,Vl Original,Portador,ISS,IRRF,INSS,PIS PASEP,COFINS,CSLL,N do Cheque,Historico,Motivo,Rateio,Vlr RS,Mult Natur,Rateio Proj,Gera Dirf,Mod Pagto,Local Pagto,Cod Agencia,Cod Congener,Cod Pag,Cod Empresa,Cod Corretor,Cod Ramo,Num Liq Sin,Num Sinistro,Num Original,Tributo,Num Remessa,Banco Origem,Ag Origem,ID Cnab Mapf,ID Mapfre,Env Cheque,Enviado,Rejeitado,DT IMPORT,Dt Exportaca,Boleto,Tributo2,Vida Prev,Dt Ger Pagto,Dt Cancel CH,Est Enviado,Cheque Pend,Baixa Agluti,cnpj 2,Data Compens,Conta Origem,Data Exp RJ,Nr Orig SisP,N Etiq SIACC\n'
 
 
 def drange(start, stop, step):
@@ -31,6 +31,9 @@ def split_file(filename, header, nlines=25000, start=2):
         output_file = '%s-%d.%s' % (basename, filenumber, extension)
         f = open(output_file,'w')
         f.write(header)
+        f.truncate()
+        f.close()
+        f = open(output_file,'a')
         sed = ["sed","-n", "%d,%dp" % (start, stop), filename]
         exit_code = subprocess.call(sed, stdout=f)
         if (exit_code != 0):
