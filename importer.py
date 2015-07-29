@@ -3,6 +3,7 @@ import subprocess
 import re
 import argparse
 import os
+import time
 
 
 LEDGER_HEADER = 'Ledger,Account,Period,Transaction Date,Journal,Line No.,Base Amt,Signal Base Amt,Debit Credit marker,Reference,Description,Journal Type,Journal Source,Other Amt,Signal Other Amt,Conversion Code,Rate,TCode 0,TCode 1,TCode 2,TCode 3,TCode 4,TCode 5,TCode 6,TCode 7,TCode 8,TCode 9,Alloc Ind.,Alloc Ref.,Alloc Period,Alloc Date,Asset Indicator,Asset Code,Asset Sub-code,Entry Date,Entry Period,Due Date,Entry OP,Post OP,Amend Op,Rough Book\n'
@@ -72,9 +73,13 @@ def microsiga_importer(microsiga):
 
 
 def process_files(worker, files):
-    ncpu = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(ncpu)
-    results = [pool.apply(worker, (f,)) for f in files]
+    nworkers = multiprocessing.cpu_count()
+    print 'Workers number:', nworkers
+    pool = multiprocessing.Pool(nworkers)
+    for f in files:
+        pool.apply_async(worker, (f,))
+    pool.close()
+    pool.join()
     #result = pool.apply(worker, (files[0],))
     #procs = []
     #for f in files:
@@ -92,6 +97,7 @@ def process_files(worker, files):
 
 if __name__ == '__main__':
 
+    start_time = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('--ledgers', required=False)
     parser.add_argument('--microsiga', required=False)
@@ -113,3 +119,6 @@ if __name__ == '__main__':
     if extracts is not None:
         extracts = split_extract(extract)
         process_files(extract_importer, extracts)
+
+    elapsed_time = time.time() - start_time
+    print "Elapsed time:", elapsed_time
