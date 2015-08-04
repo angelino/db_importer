@@ -7,5 +7,11 @@
       <schema-pattern>db_importer_development.pg_catalog db_importer_development.public</schema-pattern>
       <default-schemas>db_importer_development.pg_catalog db_importer_development.public</default-schemas>
     </data-source>
+    <data-source name="PostgreSQL - db_importer_development_new@localhost" uuid="f9b8d4e7-94ae-46ca-ba61-4fd0c1b29472">
+      <secret-storage>master_key</secret-storage>
+      <user-name>murta</user-name>
+      <schema-pattern>db_importer_development.pg_catalog db_importer_development.public</schema-pattern>
+      <default-schemas>db_importer_development.pg_catalog db_importer_development.public</default-schemas>
+    </data-source>
   </component>
 </project>

@@ -134,27 +134,28 @@ sed -n '250002,275001p' ledgers2.csv >> ledgers2-11.csv
 60 arquivos + 1 vazio;
 
 
-excutar da seguinte forma(de 4 em 4): 
+excutar da seguinte forma(de 3 em 3):
 
 rake msit:import ledgers_file=ledgers-1.csv extracts_file=extracts-1.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-2.csv extracts_file=extracts-2.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-3.csv extracts_file=extracts-3.csv & > /dev/null 2>&1
-rake msit:import ledgers_file=ledgers-4.csv extracts_file=extracts-4.csv & > /dev/null 2>&1
 
+rake msit:import ledgers_file=ledgers-4.csv extracts_file=extracts-4.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-5.csv extracts_file=extracts-5.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-6.csv extracts_file=extracts-6.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers-7.csv extracts_file=extracts-7.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-8.csv extracts_file=extracts-8.csv & > /dev/null 2>&1
-
 rake msit:import ledgers_file=ledgers-9.csv extracts_file=extracts-9.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers-10.csv extracts_file=extracts-10.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-11.csv extracts_file=extracts-11.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-12.csv extracts_file=extracts-12.csv & > /dev/null 2>&1
 
 rake msit:import ledgers_file=ledgers-13.csv extracts_file=extracts-13.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-14.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
-
 rake msit:import ledgers_file=ledgers-15.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers-16.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-17.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-18.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
@@ -162,14 +163,15 @@ rake msit:import ledgers_file=ledgers-18.csv extracts_file=extracts-empty.csv & 
 rake msit:import ledgers_file=ledgers-19.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-20.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-21.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
-rake msit:import ledgers_file=ledgers-22.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 
+rake msit:import ledgers_file=ledgers-22.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-23.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-24.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers-25.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-26.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
-
 rake msit:import ledgers_file=ledgers-27.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers-28.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-29.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers-30.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
@@ -181,14 +183,15 @@ rake msit:import ledgers_file=ledgers-33.csv extracts_file=extracts-empty.csv & 
 rake msit:import ledgers_file=ledgers2-1.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-2.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-3.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
-rake msit:import ledgers_file=ledgers2-4.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 
+rake msit:import ledgers_file=ledgers2-4.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-5.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-6.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers2-7.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-8.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
-
 rake msit:import ledgers_file=ledgers2-9.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
+
 rake msit:import ledgers_file=ledgers2-10.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 rake msit:import ledgers_file=ledgers2-11.csv extracts_file=extracts-empty.csv & > /dev/null 2>&1
 

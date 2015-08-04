@@ -117,7 +117,7 @@ if __name__ == '__main__':
         process_files(microsiga_importer, microsigas)
 
     if extracts is not None:
-        extracts = split_extract(extract)
+        extracts = split_extract(extracts)
         process_files(extract_importer, extracts)
 
     elapsed_time = time.time() - start_time

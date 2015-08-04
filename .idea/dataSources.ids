@@ -18178,4 +18178,10 @@
       </prototype>
     </procedure>
   </data-source>
+  <data-source name="PostgreSQL - db_importer_development_new@localhost" uuid="f9b8d4e7-94ae-46ca-ba61-4fd0c1b29472">
+    <database-info product="PostgreSQL" version="9.3.9" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.3 JDBC4 (build 1100)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+  </data-source>
 </component>
