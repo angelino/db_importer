@@ -35,10 +35,6 @@ class ExtractImporter
   end
 
   def format_date(value)
-    Date.strptime(value, '%d/%m/%Y') if value
-  end
-
-  def format_date(value)
     Date.strptime(value, '%d/%m/%Y') if clean_date(value)
     rescue Exception => e
       puts value
