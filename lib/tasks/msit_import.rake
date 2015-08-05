@@ -21,7 +21,7 @@ namespace :msit  do
 
       initial_time = Time.now
 
-      ledger_importer = LedgerImporter.new("#{Rails.root}/db/#{ledgers_file}")
+      ledger_importer = LedgerImporter.new("#{Rails.root}/#{ledgers_file}")
       ledgers = ledger_importer.entries
       puts "#{Time.now} - Ledger's File Readed..."
 
@@ -43,7 +43,7 @@ namespace :msit  do
 
       initial_time = Time.now
 
-      extract_importer = ExtractImporter.new("#{Rails.root}/db/#{extracts_file}")
+      extract_importer = ExtractImporter.new("#{Rails.root}/#{extracts_file}")
       extracts = extract_importer.entries
       puts "#{Time.now} - Extract's File Readed..."
 
@@ -65,7 +65,7 @@ namespace :msit  do
 
       initial_time = Time.now
 
-      microsiga_entry_importer = MicrosigaEntryImporter.new("#{Rails.root}/db/#{microsiga_file}")
+      microsiga_entry_importer = MicrosigaEntryImporter.new("#{Rails.root}/#{microsiga_file}")
       microsiga_entries = microsiga_entry_importer.entries
       puts "#{Time.now} - Microsiga Entries' File Readed..."
 
