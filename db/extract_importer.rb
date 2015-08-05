@@ -38,6 +38,19 @@ class ExtractImporter
     Date.strptime(value, '%d/%m/%Y') if value
   end
 
+  def format_date(value)
+    Date.strptime(value, '%d/%m/%Y') if clean_date(value)
+    rescue Exception => e
+      puts value
+      puts e.message
+      nil
+  end
+
+  def clean_date(value)
+    date = value.to_s.strip
+    (date.empty? || date == '/  /') ? nil : value
+  end
+
   def format_decimal(value)
     BigDecimal.new(value.to_s.gsub(' ', '').gsub('.', '').gsub(',', '.'))
   end
