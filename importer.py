@@ -73,7 +73,7 @@ def microsiga_importer(microsiga):
 
 
 def process_files(worker, files):
-    nworkers = multiprocessing.cpu_count()
+    nworkers = multiprocessing.cpu_count() - 1
     print 'Workers number:', nworkers
     pool = multiprocessing.Pool(nworkers)
     for f in files:
