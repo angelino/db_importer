@@ -238,56 +238,65 @@ namespace :msit  do
   task :match => :environment do
     # Match registers
     puts "#{Time.now} - Beggining registers match between microsiga and extracts..."
-
     initial_time = Time.now
 
     dates_query = " select  distinct to_date(vencto_real, 'DD/MM/YYYY') target_date,
                     to_date(vencto_real, 'DD/MM/YYYY') + integer '1' next_target_date
                     from microsiga_entries
                     order by 1 "
-    comparison_query = "select sum(microsiga_value) as msg, sum(extract_value) as ext, (sum(microsiga_value) - sum(extract_value)) as msg_ext
+    comparison_query = "select sum(microsiga_value) as msg, sum(extract_value) as ext, (sum(microsiga_value) - sum(extract_value)) as msg_ext, conta_origem
                         from (
-                                  select sum(vlr_rs) as microsiga_value, 0 as extract_value
+                                  select sum(vlr_rs) as microsiga_value, 0 as extract_value, :conta_origem as conta_origem
                                   from microsiga_entries
-                                  where conta_origem = '929441-4'
-                                  and tipo_mapfre <> 'CC'
+                                  where conta_origem = :conta_origem
+                                  and tipo_mapfre = 'CC'
                                   and status_oper = 'TPG'
                                   and vencto_real = :target_date
 
                                   UNION ALL
 
-                                  select 0 as microsiga_value, coalesce(sum(base_amt), 0) * -1 as extract_value
+                                  select 0 as microsiga_value, coalesce(sum(base_amt), 0) * -1 as extract_value, :conta_origem as conta_origem
                                   from extracts
-                                  where tcode_5 = 'B00000019294414'
+                                  where tcode_5 = :tcode_5
                                   and upper(description) like '%DEVOL.TED/DOC%'
                                   and transaction_date = to_date(:next_target_date, 'DD/MM/YYYY')
 
                                   UNION ALL
 
-                                  select 0 as microsiga_value, sum(base_amt) as extract_value
+                                  select 0 as microsiga_value, sum(base_amt) as extract_value, :conta_origem as conta_origem
                                   from extracts
-                                  where tcode_5 = 'B00000019294414'
+                                  where tcode_5 = :tcode_5
                                   and description in ('FORNECEDOR', 'PFOR', 'PAGFOR', 'PFOR', 'PAG DIVERSOS')
                                   and debit_credit_marker = 'D'
                                   and transaction_date = to_date(:target_date, 'DD/MM/YYYY')
-                        ) conciliate_extracts_msg"
+                        ) conciliate_extracts_msg
+                        group by conta_origem"
 
+    acccounts_to_process = [
+        {tcode_5: 'B00003990004251', conta_origem: '042515-2'},
+        {tcode_5: 'B00002370506907', conta_origem: '050690-7'},
+        {tcode_5: 'B00000019294414', conta_origem: '929441-4'}
+    ]
     dates_to_process = ActiveRecord::Base.connection.select_all(dates_query)
+
     puts "#{Time.now} - Processing #{dates_to_process.count} different dates"
 
     puts "#{Time.now} - initializing results for comparison:"
-    puts 'date,addicted_date,microsiga_value,extract_value,difference_value'
-    dates_to_process.each do |dt|
-      target_date = dt['target_date']
-      next_target_date = dt['next_target_date']
-      prepared_comparison_query = ActiveRecord::Base.send( :sanitize_sql_array,
-                                                           [ comparison_query,
-                                                             { target_date: target_date.to_date.strftime('%d/%m/%Y'),
-                                                               next_target_date: next_target_date.to_date.strftime('%d/%m/%Y') }
-                                                           ] )
-      comparison_result = ActiveRecord::Base.connection.select_all(prepared_comparison_query).first
-      puts "#{target_date},#{next_target_date},#{comparison_result['msg']},#{comparison_result['ext']},#{comparison_result['msg_ext']}"
+    puts 'data,data_seguinte,valor_microsiga,valor_extrato,diferenca,conta_origem'
+    acccounts_to_process.each do |account|
+      dates_to_process.each do |dt|
+        target_date = dt['target_date']
+        next_target_date = dt['next_target_date']
+        prepared_comparison_query = ActiveRecord::Base.send( :sanitize_sql_array,
+                                                             [ comparison_query,
+                                                               { target_date: target_date.to_date.strftime('%d/%m/%Y'),
+                                                                 next_target_date: next_target_date.to_date.strftime('%d/%m/%Y') }.merge!(account)
+                                                             ] )
+        comparison_result = ActiveRecord::Base.connection.select_all(prepared_comparison_query).first
+        puts "#{target_date},#{next_target_date},#{comparison_result['msg']},#{comparison_result['ext']},#{comparison_result['msg_ext']},#{comparison_result['conta_origem']}"
+      end
     end
+
     puts "#{Time.now} - finalized results for comparison:"
 
     final_time = Time.now
