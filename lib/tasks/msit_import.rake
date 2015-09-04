@@ -243,15 +243,43 @@ namespace :msit  do
     dates_query = " select  distinct to_date(vencto_real, 'DD/MM/YYYY') target_date,
                     to_date(vencto_real, 'DD/MM/YYYY') + integer '1' next_target_date
                     from microsiga_entries
+                    where to_date(vencto_real, 'DD/MM/YYYY') > to_date('30/04/2015', 'DD/MM/YYYY')
                     order by 1 "
     comparison_query = "select sum(microsiga_value) as msg, sum(extract_value) as ext, (sum(microsiga_value) - sum(extract_value)) as msg_ext, conta_origem
                         from (
                                   select sum(vlr_rs) as microsiga_value, 0 as extract_value, :conta_origem as conta_origem
-                                  from microsiga_entries
+                                  from microsiga_entries msg
                                   where conta_origem = :conta_origem
-                                  and tipo_mapfre = 'CC'
-                                  and status_oper = 'TPG'
+                                  and tipo_mapfre <> 'CH'
                                   and vencto_real = :target_date
+                                  and nom_forn not like 'MAPFRE VERA CRUZ SEG%'
+                                  and (
+                                    status_oper = 'TPG' or
+                                    ( status_oper = 'PPT'
+                                      and fornecedor not in ('714320', '717575', '016720', '403435', '403436', '714252', '396934', '279708', '279709', '140610', '000027', '052302', '399958', '408435','138740')
+                                      and nom_forn not in ('PREF. MUNICIPAL DE SAO PAULO',
+                                                           'EMP.BRA.CORREIOS E TELEGRAFOS',
+                                                           '10. TABELIAO DE PROTESTO DE LE',
+                                                           '3 TABELIAO PROT. LETRAS TITULO',
+                                                           '8. TABELIAO DE PROTESTO DE LET',
+                                                           'BANCO DO BRASIL S/A',
+                                                           'IRB BRASIL RESSEGUROS SA',
+                                                           'CURITIBA 4 TAB DE PROT TIT DOC',
+                                                           '2 TAB PROT LET TIT S J RIO PRE',
+                                                           'BRASILVEICULOS COMPANHIA SEGUR',
+                                                           'BRASILVEICULOS COMPANHIA SEGUR',
+                                                           '6. TABELIAO DE PROTESTO DE LET',
+                                                           '1 TAB PROTESTO LET TIT COM CAP',
+                                                           '5. TABELION DE PROTESTO DE SP',
+                                                           'MAPFRE AFFINITY SEGURADORA SA')
+                                      and not exists( select 1
+                                                      from microsiga_entries msg_inner
+                                                      where msg.nom_forn = msg_inner.nom_forn
+                                                            and msg.vlr_titulo = msg_inner.vlr_titulo
+                                                            and msg_inner.status_oper = 'RJ'
+                                                            and to_date(msg_inner.vencto_real, 'DD/MM/YYYY') > to_date('31/12/2014', 'DD/MM/YYYY') )
+                                    )
+                                  )
 
                                   UNION ALL
 
@@ -266,7 +294,11 @@ namespace :msit  do
                                   select 0 as microsiga_value, sum(base_amt) as extract_value, :conta_origem as conta_origem
                                   from extracts
                                   where tcode_5 = :tcode_5
-                                  and description in ('FORNECEDOR', 'PFOR', 'PAGFOR', 'PFOR', 'PAG DIVERSOS')
+                                  and ( description like '%FORNECEDOR%'
+                                        or description like '%PFOR%'
+                                        or description like '%PAGFOR%'
+                                        or description like '%PAG DIVERSOS%'
+                                        or description like '%E.ELETRICA%' )
                                   and debit_credit_marker = 'D'
                                   and transaction_date = to_date(:target_date, 'DD/MM/YYYY')
                         ) conciliate_extracts_msg
