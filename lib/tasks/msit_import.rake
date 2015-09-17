@@ -243,7 +243,6 @@ namespace :msit  do
     dates_query = " select  distinct to_date(vencto_real, 'DD/MM/YYYY') target_date,
                     to_date(vencto_real, 'DD/MM/YYYY') + integer '1' next_target_date
                     from microsiga_entries
-                    where to_date(vencto_real, 'DD/MM/YYYY') > to_date('30/04/2015', 'DD/MM/YYYY')
                     order by 1 "
     comparison_query = "select sum(microsiga_value) as msg, sum(extract_value) as ext, (sum(microsiga_value) - sum(extract_value)) as msg_ext, conta_origem
                         from (
@@ -272,12 +271,6 @@ namespace :msit  do
                                                            '1 TAB PROTESTO LET TIT COM CAP',
                                                            '5. TABELION DE PROTESTO DE SP',
                                                            'MAPFRE AFFINITY SEGURADORA SA')
-                                      and not exists( select 1
-                                                      from microsiga_entries msg_inner
-                                                      where msg.nom_forn = msg_inner.nom_forn
-                                                            and msg.vlr_titulo = msg_inner.vlr_titulo
-                                                            and msg_inner.status_oper = 'RJ'
-                                                            and to_date(msg_inner.vencto_real, 'DD/MM/YYYY') > to_date('31/12/2014', 'DD/MM/YYYY') )
                                     )
                                   )
 
@@ -287,7 +280,8 @@ namespace :msit  do
                                   from extracts
                                   where tcode_5 = :tcode_5
                                   and upper(description) like '%DEVOL.TED/DOC%'
-                                  and transaction_date = to_date(:next_target_date, 'DD/MM/YYYY')
+                                  and transaction_date > to_date(:target_date, 'DD/MM/YYYY')
+                                  and transaction_date <= to_date(:next_target_date, 'DD/MM/YYYY')
 
                                   UNION ALL
 
@@ -319,6 +313,8 @@ namespace :msit  do
       dates_to_process.each do |dt|
         target_date = dt['target_date']
         next_target_date = dt['next_target_date']
+        next_target_date = next_target_date.to_date + 2.day if next_target_date.to_date.saturday?
+
         prepared_comparison_query = ActiveRecord::Base.send( :sanitize_sql_array,
                                                              [ comparison_query,
                                                                { target_date: target_date.to_date.strftime('%d/%m/%Y'),
@@ -326,6 +322,18 @@ namespace :msit  do
                                                              ] )
         comparison_result = ActiveRecord::Base.connection.select_all(prepared_comparison_query).first
         puts "#{target_date},#{next_target_date},#{comparison_result['msg']},#{comparison_result['ext']},#{comparison_result['msg_ext']},#{comparison_result['conta_origem']}"
+        begin
+          ActiveRecord::Base.connection.execute " insert into
+                                                  microsiga_extracts(target_date, next_date, valor_microsiga, valor_extrato, diferenca, conta_origem)
+                                                  values ('#{target_date}',
+                                                          '#{next_target_date}',
+                                                          #{comparison_result['msg']},
+                                                          #{comparison_result['ext']},
+                                                          #{comparison_result['msg_ext']},
+                                                          '#{comparison_result["conta_origem"]}')";
+        rescue Exception => e
+          puts e.to_s
+        end
       end
     end
 
@@ -336,5 +344,115 @@ namespace :msit  do
     import_time = final_time.to_f - initial_time.to_f
 
     puts "#{Time.now} - Microsiga registers match finished in #{import_time} seconds"
+  end
+
+  desc "match registers between microsiga and ledgers"
+  task :conciliate => :environment do
+    puts "#{Time.now} - Beggining registers match between microsiga and ledgers..."
+    initial_time = Time.now
+
+    dates_query = " select target_date from microsiga_extracts
+                    where conta_origem = '929441-4'
+                          and target_date > '2015-04-30'
+                          and diferenca = 0
+                    order by 1;"
+
+    conciliation_query = " SELECT DISTINCT
+                                   razao.line_no,
+                                   razao.journal,
+                                   microsiga.vlr_titulo,
+                                   razao.base_amt,
+                                   microsiga.nom_forn,
+                                   microsiga.id_cnab_mapf,
+                                   microsiga.fornecedor,
+                                   microsiga.no_titulo
+                            FROM (
+                                   SELECT *
+                                   FROM microsiga_entries msg
+                                   WHERE msg.vencto_real = :target_date
+                                         AND msg.conta_origem = '929441-4'
+                                         AND msg.tipo_mapfre <> 'CH'
+                                         AND msg.nom_forn NOT LIKE 'MAPFRE VERA CRUZ SEG%'
+                                         AND (
+                                           msg.status_oper = 'TPG' OR
+                                           (msg.status_oper = 'PPT'
+                                            AND msg.fornecedor NOT IN
+                                                ( '714320',
+                                                  '717575',
+                                                  '016720',
+                                                  '403435',
+                                                  '403436',
+                                                  '714252',
+                                                  '396934',
+                                                  '279708',
+                                                  '279709',
+                                                  '140610',
+                                                  '000027' )
+                                            AND msg.nom_forn NOT IN ('PREF. MUNICIPAL DE SAO PAULO',
+                                                                     'EMP.BRA.CORREIOS E TELEGRAFOS',
+                                                                     '10. TABELIAO DE PROTESTO DE LE',
+                                                                     '3 TABELIAO PROT. LETRAS TITULO',
+                                                                     '8. TABELIAO DE PROTESTO DE LET',
+                                                                     'BANCO DO BRASIL S/A',
+                                                                     'IRB BRASIL RESSEGUROS SA',
+                                                                     'CURITIBA 4 TAB DE PROT TIT DOC',
+                                                                     '2 TAB PROT LET TIT S J RIO PRE',
+                                                                     'BRASILVEICULOS COMPANHIA SEGUR',
+                                                                     'BRASILVEICULOS COMPANHIA SEGUR')
+                                           )
+                                         )
+                                         AND msg.tipo_rubrica IN ('21', '08', '23', '25')
+                                 ) microsiga
+                              INNER JOIN (
+                                           SELECT *
+                                           FROM ledgers
+                                           WHERE transaction_date = to_date(:target_date, 'DD/MM/YYYY')
+                                                 AND tcode_5 = 'B00000019294414'
+                                                 AND journal_type = 'TWTES'
+                                                 AND debit_credit_marker = 'C'
+                                                 AND upper(description) NOT LIKE '%CH%'
+                                         ) razao
+                                ON microsiga.vlr_titulo = razao.base_amt
+                            ORDER BY 3, 2, 1;"
+
+    puts "#{Time.now} - initializing results for conciliation:"
+
+    dates_to_process = ActiveRecord::Base.connection.select_all(dates_query)
+    puts "#{Time.now} - processing: #{dates_to_process.count} different dates."
+
+    puts 'line_no,journal,vlr_titulo,base_amt,nom_forn,id_cnab_mapf'
+    dates_to_process.each do |date|
+      target_date = date["target_date"]
+      prepared_conciliation_query = ActiveRecord::Base.send( :sanitize_sql_array,
+                                                           [ conciliation_query,
+                                                             { target_date: target_date.to_date.strftime('%d/%m/%Y') }
+                                                           ] )
+
+
+      conciliation_results = ActiveRecord::Base.connection.select_all(prepared_conciliation_query)
+
+      conciliation_results.each do |con|
+        line_no = con['line_no']
+        journal = con['journal']
+        id_cnab_mapf = con['id_cnab_mapf']
+        fornecedor = con['fornecedor']
+        no_titulo = con['no_titulo']
+
+        puts "#{line_no},#{journal},#{id_cnab_mapf},#{fornecedor},#{no_titulo}"
+        begin
+          ActiveRecord::Base.connection.execute "insert into microsiga_ledgers(journal, line_no, id_cnab_mapf, fornecedor, no_titulo) values ('#{journal}','#{line_no}','#{id_cnab_mapf}','#{fornecedor}','#{no_titulo}')";
+        rescue Exception => e
+          puts e.to_s
+        end
+      end
+
+    end
+    puts "#{Time.now} - finalized concilliation:"
+
+    final_time = Time.now
+
+    match_time = final_time.to_f - initial_time.to_f
+
+    puts "#{Time.now} - Microsiga X Ledgers match finished in #{match_time} seconds"
   end
 end
